@@ -39,6 +39,12 @@ class Youtube {
 		return $this->valid() &&
 			strpos($this->get_part("path"), "embed") !== false;
 	}
+	
+	
+	private function is_short_format() {
+		$re = "/\/(e|v)\/[a-zA-Z0-9_-]{11}$/";
+		return preg_match($re ,$this->youtube_link);
+	}
 
 
 	private function get_part($part) {
@@ -59,11 +65,11 @@ class Youtube {
 			if ($this->detect_url("youtu.be")) {
 				return str_replace("/", "", $this->get_part("path"));
 			} else if ($this->detect_url("youtube.com") || $this->detect_url("youtube-nocookie.com")) {
-				if ($this->is_embed()) {
+				if ($this->is_embed() || $this->is_short_format()) {
 					return substr($this->get_part("path"), -$this->length_id);
 				} else {
 					parse_str($this->get_part("query"), $query);
-					return $query["v"];
+					return (isset($query["v"]) ? $query["v"] : null);
 				}
 			}
 		}
@@ -100,8 +106,6 @@ class Youtube {
 		return $this->youtube_link;
 	}
 
-
 }
-
 
 ?>
