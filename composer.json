@@ -1,21 +1,14 @@
 {
     "name": "youtube/parser-php",
-    "description": "YouTube parser library for PHP",
-    "require": {},
-    "require-dev": {
-        "phpunit/phpunit": "^10.0"
+    "description": "Simple Youtube URL parser",
+    "type": "library",
+    "require": {
+        "php": ">=7.0"
     },
     "autoload": {
-        "psr-4": {
-            "YoutubeParser\\": "youtube-parser/"
-        }
+        "files": ["youtube-parser/youtube.php"]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "YoutubeParser\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "phpunit"
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
     }
 }
