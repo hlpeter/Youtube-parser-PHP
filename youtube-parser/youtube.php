@@ -41,10 +41,11 @@ class Youtube {
 	}
 	
 	
-	private function is_short_format() {
-		$re = "/\/(e|v)\/[a-zA-Z0-9_-]{11}$/";
-		return preg_match($re ,$this->youtube_link);
-	}
+        private function is_short_format() {
+                $path = $this->get_part("path");
+                $re = "/\/(e|v|shorts|clip|live)\/[a-zA-Z0-9_-]{11}$/";
+                return preg_match($re, $path);
+        }
 
 
 	private function get_part($part) {
