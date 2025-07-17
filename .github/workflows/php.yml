@@ -1,0 +1,26 @@
+name: PHP Tests
+
+on:
+  push:
+    paths:
+      - '**.php'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'tests/**'
+  pull_request:
+    paths:
+      - '**.php'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'tests/**'
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-php@v3
+        with:
+          php-version: '8.1'
+      - run: composer install --prefer-dist --no-progress --no-interaction
+      - run: vendor/bin/phpunit
