@@ -17,17 +17,23 @@ class Youtube {
 	}
 
 
-	public function valid() {
-		return 
-			strpos($this->get_part("host"), "youtu.be") !== false ||
-			strpos($this->get_part("host"), "youtube.com") !== false ||
-			strpos($this->get_part("host"), "youtube-nocookie.com") !== false;
-	}
+        public function valid() {
+                $host = $this->get_part("host");
+                if ($host === null) {
+                        return false;
+                }
+                return strpos($host, "youtu.be") !== false ||
+                        strpos($host, "youtube.com") !== false ||
+                        strpos($host, "youtube-nocookie.com") !== false;
+        }
 
 
-	private function parse() {
-		return parse_url($this->youtube_link);
-	}
+        private function parse() {
+                if ($this->youtube_link === null) {
+                        return [];
+                }
+                return parse_url($this->youtube_link);
+        }
 
 
 	private function detect_url($url) {
@@ -55,9 +61,10 @@ class Youtube {
 	}
 
 
-	public function get_host() {
-		return $this->parse()["host"];
-	}
+        public function get_host() {
+                $parts = $this->parse();
+                return $parts["host"] ?? null;
+        }
 
 
 	public function get_id() {
